@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  registerUser,
   getMe,
   loginUser,
   getUserProfile,
@@ -10,6 +11,9 @@ import auth from '../middleware/authMiddleware.js';
 import upload from '../middleware/uploadMiddleware.js';
 
 const router = express.Router();
+
+// Register user
+router.post('/register', registerUser);
 
 // Login user
 router.post('/login', loginUser);
