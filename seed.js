@@ -29,7 +29,7 @@ const seedAdmin = async () => {
       phone: '1234567890',
       address: 'Admin Address',
       role: 'Admin',
-      isActive: true
+      isActive: true,
     });
 
     await admin.save();
