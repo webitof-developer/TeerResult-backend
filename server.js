@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import fs from 'fs';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import gameRoutes from './routes/gameRoutes.js';
@@ -9,6 +10,7 @@ import bannerRputes from './routes/bannerRoutes.js';
 import contactRoute from './routes/contactRoutes.js';
 import adminSettingsRoutes from './routes/adminSettingsRoutes.js';
 import dreamRoutes from './routes/dreamRoutes.js';
+import { UPLOAD_DIR } from './config/paths.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 dotenv.config();
@@ -17,9 +19,13 @@ connectDB();
 
 const app = express();
 
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+}
+
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('upload'));
+app.use('/uploads', express.static(UPLOAD_DIR));
 
 // Routes
 app.use('/api/users', userRoutes);

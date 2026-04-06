@@ -1,10 +1,16 @@
 import multer from 'multer';
+import fs from 'fs';
 import path from 'path';
+import { UPLOAD_DIR } from '../config/paths.js';
+
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+}
 
 // Configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'upload/'); // Files will be saved in the 'upload' directory
+    cb(null, UPLOAD_DIR);
   },
   filename: (req, file, cb) => {
     // Generate unique filename with timestamp
@@ -16,7 +22,7 @@ const storage = multer.diskStorage({
 // File filter to allow only certain file types (optional)
 const fileFilter = (req, file, cb) => {
   // Allow images, documents, etc. - adjust as needed
-  const allowedTypes = /jpeg|jpg|png|gif|pdf|doc|docx/;
+  const allowedTypes = /jpeg|jpg|png|gif|webp|avif|pdf|doc|docx/;
   const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = allowedTypes.test(file.mimetype);
 

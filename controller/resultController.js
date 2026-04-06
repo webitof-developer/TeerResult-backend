@@ -170,7 +170,7 @@ export const deleteResult = async (req, res) => {
       return res.status(404).json({ message: 'Result not found' });
     }
 
-    await result.remove();
+    await result.deleteOne();
 
     res.json({ message: 'Result deleted successfully' });
   } catch (error) {

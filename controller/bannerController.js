@@ -127,7 +127,7 @@ export const deleteBanner = async (req, res) => {
       return res.status(404).json({ message: 'Banner not found' });
     }
 
-    await banner.remove();
+    await banner.deleteOne();
 
     res.json({ message: 'Banner deleted successfully' });
   } catch (error) {

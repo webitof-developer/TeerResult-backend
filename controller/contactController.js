@@ -75,7 +75,7 @@ export const deleteContact = async (req, res) => {
       return res.status(404).json({ message: 'Contact not found' });
     }
 
-    await contact.remove();
+    await contact.deleteOne();
 
     res.json({ message: 'Contact deleted successfully' });
   } catch (error) {

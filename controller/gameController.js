@@ -93,7 +93,7 @@ export const deleteGame = async (req, res) => {
       return res.status(404).json({ message: 'Game not found' });
     }
 
-    await game.remove();
+    await game.deleteOne();
 
     res.json({ message: 'Game deleted successfully' });
   } catch (error) {
